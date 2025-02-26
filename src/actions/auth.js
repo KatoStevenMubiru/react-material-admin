@@ -18,6 +18,9 @@ export const AUTH_INIT_SUCCESS = 'AUTH_INIT_SUCCESS';
 export const AUTH_INIT_ERROR = 'AUTH_INIT_ERROR';
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const RECOVERY_PROFILE_REQUEST = 'RECOVERY_PROFILE_REQUEST';
+export const RECOVERY_PROFILE_SUCCESS = 'RECOVERY_PROFILE_SUCCESS';
+export const RECOVERY_PROFILE_FAILURE = 'RECOVERY_PROFILE_FAILURE';
 
 async function findMe() {
   const response = await axios.get('/auth/me');
@@ -178,16 +181,21 @@ export function registerUser(creds) {
     });
 
     if (creds.email.length > 0 && creds.password.length > 0) {
+      const registrationData = {
+        ...creds,
+        userType: creds.userType || 'patient',
+        requiresRecoveryProfile: true,
+      };
+      
       axios
-        .post('/auth/signup', creds)
+        .post('/auth/signup', registrationData)
         .then((res) => {
           dispatch({
             type: REGISTER_SUCCESS,
           });
           showSnackbar({
             type: 'success',
-            message:
-              "You've been registered successfully. Please check your email for verification link",
+            message: "You've been registered successfully. Please check your email for verification link",
           });
           dispatch(push('/login'));
         })
@@ -196,6 +204,53 @@ export function registerUser(creds) {
         });
     } else {
       dispatch(authError('Something was wrong. Try again'));
+    }
+  };
+}
+
+export function completeRecoveryProfile(userId, recoveryData) {
+  return (dispatch) => {
+    dispatch({
+      type: RECOVERY_PROFILE_REQUEST,
+    });
+    
+    axios
+      .post(`/users/${userId}/recovery-profile`, { data: recoveryData })
+      .then((res) => {
+        dispatch({
+          type: RECOVERY_PROFILE_SUCCESS,
+          payload: res.data,
+        });
+        
+        showSnackbar({
+          type: 'success',
+          message: 'Your recovery profile has been completed!',
+        });
+        
+        dispatch(push('/app/dashboard'));
+      })
+      .catch((err) => {
+        dispatch({
+          type: RECOVERY_PROFILE_FAILURE,
+          payload: err.response?.data || err.message,
+        });
+        
+        showSnackbar({
+          type: 'error',
+          message: 'There was an error updating your profile. Please try again.',
+        });
+      });
+  };
+}
+
+export function checkRecoveryProfileStatus() {
+  return async (dispatch, getState) => {
+    const { currentUser } = getState().auth;
+    
+    if (!currentUser) return;
+    
+    if (currentUser.userType === 'patient' && currentUser.requiresRecoveryProfile) {
+      dispatch(push('/app/complete-profile'));
     }
   };
 }
