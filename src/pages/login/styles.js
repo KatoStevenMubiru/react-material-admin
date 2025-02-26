@@ -19,7 +19,9 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '1rem',
+    padding: '2rem',
+    backgroundImage: 'linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%)',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
     [theme.breakpoints.down('md')]: {
       width: '50%',
     },
@@ -29,15 +31,30 @@ export default makeStyles((theme) => ({
   },
   logotypeImage: {
     width: 165,
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(6),
+    filter: 'drop-shadow(0px 4px 10px rgba(0,0,0,0.2))',
   },
   logotypeText: {
-    color: 'white',
-    fontWeight: 500,
+    color: '#FFFFFF',
+    fontWeight: 700,
     fontSize: 84,
     textAlign: 'center',
+    marginBottom: theme.spacing(2),
+    textShadow: '0px 4px 12px rgba(0,0,0,0.15)',
     [theme.breakpoints.down('md')]: {
       fontSize: 48,
+    },
+  },
+  supportText: {
+    color: '#FFFFFF',
+    fontWeight: 400,
+    fontSize: 32,
+    textAlign: 'center',
+    marginTop: theme.spacing(2),
+    maxWidth: '80%',
+    textShadow: '0px 2px 8px rgba(0,0,0,0.1)',
+    [theme.breakpoints.down('md')]: {
+      fontSize: 24,
     },
   },
   customFormContainer: {
@@ -58,42 +75,75 @@ export default makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'flex-start',
     overflow: 'auto',
-    alignItems: 'center',
+    padding: '2rem 2rem',
+    backgroundColor: '#FFFFFF',
+    position: 'relative',
     [theme.breakpoints.down('md')]: {
       width: '50%',
-      overflow: 'visible',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      padding: '1.5rem 1.5rem 5rem',
     },
   },
   form: {
-    width: 320,
+    width: '100%',
+    maxWidth: 420,
+    margin: '0 auto',
+  },
+  tabs: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(4),
   },
   tab: {
-    fontWeight: 400,
+    fontWeight: 500,
     fontSize: 18,
+    textTransform: 'none',
+    minWidth: 100,
+    transition: 'all 0.2s',
   },
   greeting: {
-    fontWeight: 500,
+    fontWeight: 600,
     textAlign: 'center',
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
+    fontSize: '2rem',
+    color: theme.palette.text.primary,
   },
   subGreeting: {
     fontWeight: 500,
     textAlign: 'center',
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    fontSize: '1.5rem',
+    color: theme.palette.text.primary,
+  },
+  supportiveMessage: {
+    textAlign: 'center',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
+    fontSize: '1rem',
+    color: theme.palette.text.secondary,
   },
   googleButton: {
-    marginTop: theme.spacing(6),
-    boxShadow: theme.customShadows.widget,
-    backgroundColor: 'white',
+    marginTop: theme.spacing(4),
+    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+    backgroundColor: '#FFFFFF',
     width: '100%',
     textTransform: 'none',
+    fontWeight: 500,
+    transition: 'all 0.2s',
+    '&:hover': {
+      boxShadow: '0 6px 16px rgba(0,0,0,0.12)',
+      transform: 'translateY(-1px)'
+    },
+    marginBottom: theme.spacing(10),
   },
   googleButtonCreating: {
-    marginTop: 0,
+    marginTop: theme.spacing(2),
   },
   googleIcon: {
-    width: 30,
+    width: 25,
     marginRight: theme.spacing(2),
   },
   creatingButtonContainer: {
@@ -102,10 +152,19 @@ export default makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   createAccountButton: {
     height: 46,
     textTransform: 'none',
+    fontWeight: 600,
+    fontSize: '1rem',
+    boxShadow: '0 4px 12px rgba(83,109,254,0.25)',
+    transition: 'all 0.2s',
+    '&:hover': {
+      boxShadow: '0 6px 16px rgba(83,109,254,0.35)',
+      transform: 'translateY(-1px)'
+    },
   },
   formDividerContainer: {
     marginTop: theme.spacing(4),
@@ -116,15 +175,20 @@ export default makeStyles((theme) => ({
   formDividerWord: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    color: theme.palette.text.hint,
   },
   formDivider: {
     flexGrow: 1,
     height: 1,
-    backgroundColor: theme.palette.text.hint + '40',
+    backgroundColor: theme.palette.divider,
   },
   errorMessage: {
     textAlign: 'center',
-    color: '#ff0000ba',
+    color: '#ff0000',
+    backgroundColor: 'rgba(255,0,0,0.05)',
+    padding: theme.spacing(1),
+    borderRadius: 4,
+    marginBottom: theme.spacing(2),
   },
   textFieldUnderline: {
     '&:before': {
@@ -139,6 +203,12 @@ export default makeStyles((theme) => ({
   },
   textField: {
     borderBottomColor: theme.palette.background.light,
+    fontSize: '1rem',
+    padding: theme.spacing(1.5, 0),
+  },
+  inputIcon: {
+    color: theme.palette.text.secondary,
+    marginRight: theme.spacing(1),
   },
   formButtons: {
     width: '100%',
@@ -146,19 +216,100 @@ export default makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexDirection: 'column',
+    '& > button': {
+      marginBottom: theme.spacing(2),
+      width: '100%',
+      height: 46,
+      fontWeight: 600,
+      transition: 'all 0.2s',
+      '&:hover': {
+        transform: 'translateY(-1px)',
+        boxShadow: '0 6px 16px rgba(83,109,254,0.35)',
+      },
+    },
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+      '& > button': {
+        marginBottom: 0,
+        width: 'auto',
+      },
+    },
   },
   forgetButton: {
     textTransform: 'none',
-    fontWeight: 400,
+    fontWeight: 500,
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      marginTop: 0,
+    },
   },
   loginLoader: {
     marginLeft: theme.spacing(4),
   },
+  footerSpace: {
+    minHeight: '60px',
+  },
   copyright: {
     marginTop: theme.spacing(4),
     whiteSpace: 'nowrap',
-    [theme.breakpoints.up('md')]: {
-      bottom: theme.spacing(2),
+    textAlign: 'center',
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    left: 0,
+    right: 0,
+    color: '#6e6e6e',
+    fontSize: '0.75rem',
+  },
+  emergencyContainer: {
+    width: '100%',
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(2),
+  },
+  emergencyButton: {
+    backgroundColor: theme.palette.error.main,
+    '&:hover': {
+      backgroundColor: theme.palette.error.dark,
+      transform: 'translateY(-1px)',
+      boxShadow: '0 6px 16px rgba(255,92,147,0.3)',
+    },
+    fontWeight: 600,
+    fontSize: '0.95rem',
+    borderRadius: 8,
+    boxShadow: '0 4px 12px rgba(255,92,147,0.2)',
+    transition: 'all 0.2s',
+    textTransform: 'none',
+  },
+  emergencyContent: {
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2.5),
+    backgroundColor: theme.palette.background.paper,
+    border: `1px solid ${theme.palette.error.light}`,
+    borderRadius: 8,
+    boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+  },
+  privacyAlert: {
+    marginTop: theme.spacing(2),
+    borderRadius: 8,
+  },
+  languageToggle: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '100%',
+    marginBottom: theme.spacing(1),
+  },
+  languageIcon: {
+    color: theme.palette.primary.main,
+    fontSize: '1.25rem',
+  },
+  demoButton: {
+    textTransform: 'none',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    fontWeight: 500,
+    fontSize: '0.9rem',
+    '&:hover': {
+      backgroundColor: 'rgba(255, 92, 147, 0.08)',
     },
   },
 }));
