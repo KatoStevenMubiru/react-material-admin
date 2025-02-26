@@ -14,14 +14,25 @@ export default makeStyles(theme => ({
     justifyContent: "space-between",
     margin: theme.spacing(1) * -2,
     marginTop: theme.spacing(1),
+    borderTop: `1px solid ${theme.palette.divider}`,
   },
   statCell: {
     padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    textAlign: 'center',
+  },
+  borderRight: {
+    borderRight: `1px solid ${theme.palette.divider}`,
   },
   totalValueContainer: {
     display: "flex",
-    alignItems: "flex-end",
+    alignItems: "center",
     justifyContent: "space-between",
+    padding: theme.spacing(2, 0),
   },
   totalValue: {
     display: "flex",
@@ -33,7 +44,7 @@ export default makeStyles(theme => ({
   },
   profitArrowDanger: {
     transform: "rotate(45deg)",
-    fill: theme.palette.secondary.main,
+    fill: theme.palette.error.main,
   },
   selectInput: {
     padding: 10,
@@ -41,6 +52,12 @@ export default makeStyles(theme => ({
     "&:focus": {
       backgroundColor: "white",
     },
+  },
+  statDescription: {
+    padding: theme.spacing(0, 2, 2),
+    color: theme.palette.text.secondary,
+    fontStyle: 'italic',
+    textAlign: 'center',
   },
   bodyWidgetOverflow: {
     overflow: 'auto'
