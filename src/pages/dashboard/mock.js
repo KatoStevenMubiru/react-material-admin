@@ -1,189 +1,115 @@
-const mock = {
-  tasks: [
+export const mockData = {
+  recoveryTasks: [
     {
       id: 0,
-      type: "Meeting",
-      title: "Meeting with Andrew Piker",
-      time: "9:00"
+      type: "Therapy",
+      title: "Individual Counseling Session",
+      time: "10:00 AM",
+      day: "Today",
+      location: "Makerere University Counseling Center"
     },
     {
       id: 1,
-      type: "Call",
-      title: "Call with HT Company",
-      time: "12:00"
+      type: "Support Group",
+      title: "Student Recovery Circle",
+      time: "6:00 PM",
+      day: "Tomorrow",
+      location: "CoCIS Building, Room 302"
     },
     {
       id: 2,
-      type: "Meeting",
-      title: "Meeting with Zoe Alison",
-      time: "14:00"
-    },
-    {
-      id: 3,
-      type: "Interview",
-      title: "Interview with HR",
-      time: "15:00"
+      type: "Academic Support",
+      title: "Study Skills Workshop for Recovery",
+      time: "2:30 PM",
+      day: "Wednesday",
+      location: "Main Library, Discussion Room 2"
     }
   ],
-  bigStat: [
-    {
-      product: "Light Blue",
-      total: {
-        monthly: 4232,
-        weekly: 1465,
-        daily: 199,
-        percent: { value: 3.7, profit: false }
-      },
-      color: "primary",
-      registrations: {
-        monthly: { value: 830, profit: false },
-        weekly: { value: 215, profit: true },
-        daily: { value: 33, profit: true }
-      },
-      bounce: {
-        monthly: { value: 4.5, profit: false },
-        weekly: { value: 3, profit: true },
-        daily: { value: 3.25, profit: true }
-      }
-    },
-    {
-      product: "Sing App",
-      total: {
-        monthly: 754,
-        weekly: 180,
-        daily: 27,
-        percent: { value: 2.5, profit: true }
-      },
-      color: "warning",
-      registrations: {
-        monthly: { value: 32, profit: true },
-        weekly: { value: 8, profit: true },
-        daily: { value: 2, profit: false }
-      },
-      bounce: {
-        monthly: { value: 2.5, profit: true },
-        weekly: { value: 4, profit: false },
-        daily: { value: 4.5, profit: false }
-      }
-    },
-    {
-      product: "RNS",
-      total: {
-        monthly: 1025,
-        weekly: 301,
-        daily: 44,
-        percent: { value: 3.1, profit: true }
-      },
-      color: "secondary",
-      registrations: {
-        monthly: { value: 230, profit: true },
-        weekly: { value: 58, profit: false },
-        daily: { value: 15, profit: false }
-      },
-      bounce: {
-        monthly: { value: 21.5, profit: false },
-        weekly: { value: 19.35, profit: false },
-        daily: { value: 10.1, profit: true }
-      }
-    }
-  ],
-  notifications: [
+  supportContacts: [
     {
       id: 0,
-      icon: "thumbs-up",
-      color: "primary",
-      content:
-        'Ken <span className="fw-semi-bold">accepts</span> your invitation'
+      name: "Mental Health Crisis Helpline",
+      role: "24/7 Student Emergency Support",
+      phone: "0800-623-456",
+      email: "crisis@mak.ac.ug",
+      priority: "emergency"
     },
     {
       id: 1,
-      icon: "file",
-      color: "success",
-      content: "Report from LT Company"
+      name: "Dr. Nakimuli Sarah",
+      role: "University Addiction Counselor",
+      phone: "0780-234-567",
+      email: "sarah.nakimuli@mak.ac.ug",
+      priority: "primary"
     },
     {
       id: 2,
-      icon: "envelope",
-      color: "danger",
-      content: '4 <span className="fw-semi-bold">Private</span> Mails'
-    },
-    {
-      id: 3,
-      icon: "comment",
-      color: "success",
-      content: '3 <span className="fw-semi-bold">Comments</span> to your Post'
-    },
-    {
-      id: 4,
-      icon: "cog",
-      color: "light",
-      content: 'New <span className="fw-semi-bold">Version</span> of RNS app'
-    },
-    {
-      id: 5,
-      icon: "bell",
-      color: "info",
-      content:
-        '15 <span className="fw-semi-bold">Notifications</span> from Social Apps'
+      name: "Peer Recovery Leader - David",
+      role: "Student Support Contact",
+      phone: "0700-345-678",
+      email: "peer.support@mak.ac.ug",
+      priority: "secondary"
     }
   ],
-  table: [
+  milestones: [
     {
       id: 0,
-      name: "Mark Otto",
-      email: "ottoto@example.com",
-      product: "ON the Road",
-      price: "$25 224.2",
-      date: "11 May 2017",
-      city: "Otsego",
-      status: "Sent",
-      color: "primary"
+      title: "One Month Substance-Free",
+      date: "March 15, 2023",
+      description: "Successfully completed first month of recovery while maintaining your academic schedule",
+      achieved: true
     },
     {
       id: 1,
-      name: "Jacob Thornton",
-      email: "thornton@example.com",
-      product: "HP Core i7",
-      price: "$1 254.2",
-      date: "4 Jun 2017",
-      city: "Fivepointville",
-      status: "Sent",
-      color: "secondary"
+      title: "Joined Peer Support Network",
+      date: "February 15, 2023",
+      description: "Connected with other recovering students at Makerere University",
+      achieved: true
     },
     {
       id: 2,
-      name: "Larry the Bird",
-      email: "bird@example.com",
-      product: "Air Pro",
-      price: "$1 570.0",
-      date: "27 Aug 2017",
-      city: "Leadville North",
-      status: "Pending",
-      color: "warning"
+      title: "Complete Mid-Semester Recovery Review",
+      date: "April 30, 2023",
+      description: "Evaluate progress and adjust recovery plan to accommodate exam period",
+      achieved: false
+    }
+  ],
+  recoveryActivities: [
+    {
+      id: 0,
+      activity: "Peer Support Meeting",
+      type: "Student Group",
+      date: "Today, 2:00 PM",
+      status: "Scheduled",
+      color: "#3CD4A0",
+      location: "Student Center, Room 205"
+    },
+    {
+      id: 1,
+      activity: "Stress Management Workshop",
+      type: "Academic Wellbeing",
+      date: "Yesterday, 10:00 AM",
+      status: "Completed",
+      color: "#3CD4A0",
+      location: "Faculty of Psychology"
+    },
+    {
+      id: 2,
+      activity: "One-on-One Counseling",
+      type: "Therapy Session",
+      date: "Monday, 3:30 PM",
+      status: "Completed",
+      color: "#3CD4A0",
+      location: "University Health Services"
     },
     {
       id: 3,
-      name: "Joseph May",
-      email: "josephmay@example.com",
-      product: "Version Control",
-      price: "$5 224.5",
-      date: "19 Feb 2018",
-      city: "Seaforth",
-      status: "Declined",
-      color: "success"
-    },
-    {
-      id: 4,
-      name: "Peter Horadnia",
-      email: "horadnia@example.com",
-      product: "Let's Dance",
-      price: "$43 594.7",
-      date: "1 Mar 2018",
-      city: "Hanoverton",
-      status: "Sent",
-      color: "info"
+      activity: "Medication Check-in",
+      type: "Health Monitoring",
+      date: "Tomorrow, 9:00 AM",
+      status: "Scheduled",
+      color: "#536DFE",
+      location: "University Clinic"
     }
   ]
 };
-
-export default mock;
