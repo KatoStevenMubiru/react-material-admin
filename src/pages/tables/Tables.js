@@ -8,7 +8,7 @@ import Widget from "../../components/Widget";
 import Table from "../dashboard/components/Table/Table";
 
 // data
-import mock from "../dashboard/mock";
+import { mockData } from "../dashboard/mock";
 
 const datatableData = [
   ["Joe James", "Example Inc.", "Yonkers", "NY"],
@@ -51,7 +51,7 @@ export default function Tables() {
             noBodyPadding
             bodyClass={classes.tableWrapper}
           >
-            <Table data={mock.table} />
+            <Table data={mockData.recoveryActivities} />
           </Widget>
         </Grid>
       </Grid>
