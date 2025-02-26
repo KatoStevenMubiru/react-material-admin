@@ -38,9 +38,9 @@ export default {
       dark: tinycolor(info).darken(darkenRate).toHexString(),
     },
     inherit: {
-      main: 'inherit',
-      light: tinycolor('inherit').lighten('inherit').toHexString(),
-      dark: tinycolor('inherit').darken('inherit').toHexString(),
+      main: '#757575',
+      light: '#9E9E9E',
+      dark: '#616161',
     },
     text: {
       primary: '#4A4A4A',
