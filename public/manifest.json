@@ -1,6 +1,7 @@
 {
-  "short_name": "app.title",
-  "name": "app.title",
+  "short_name": "Recovery Support",
+  "name": "AI-Driven Personalized Recovery System",
+  "description": "Confidential addiction recovery support for Ugandan university students",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,16 +11,33 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#2196f3",
+  "background_color": "#ffffff",
+  "categories": ["health", "education", "social"],
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Emergency Support",
+      "short_name": "Emergency",
+      "description": "Quick access to emergency support",
+      "url": "/emergency",
+      "icons": [{ "src": "emergency-icon.png", "sizes": "96x96" }]
+    }
+  ]
 }
