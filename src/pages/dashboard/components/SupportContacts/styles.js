@@ -1,0 +1,11 @@
+import { makeStyles } from "@mui/styles";
+
+export default makeStyles(theme => ({
+  contactCard: {
+    transition: 'all 0.3s ease',
+    '&:hover': {
+      boxShadow: '0 6px 12px rgba(0,0,0,0.1)',
+      transform: 'translateY(-3px)'
+    }
+  }
+}));
