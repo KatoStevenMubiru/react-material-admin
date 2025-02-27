@@ -14,7 +14,8 @@ import { withStyles } from '@mui/styles';
 import useStyles from '../Layout/styles';
 
 // components
-import structure from '../Sidebar/SidebarStructure';
+import SidebarStructure from '../Sidebar/SidebarStructure';
+import { useLanguage } from '../../context/LanguageContext';
 
 // Tab styling
 const CustomTab = withStyles((theme) => ({
@@ -30,6 +31,10 @@ const BreadCrumbs = () => {
   const location = useLocation();
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
+  const { t } = useLanguage();
+  
+  // Get the structure array by calling the function
+  const structure = SidebarStructure();
 
   const renderBreadCrumbs = () => {
     let url = location.pathname;
