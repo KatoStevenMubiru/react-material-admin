@@ -1,92 +1,78 @@
 import { makeStyles } from '@mui/styles';
 
-export default makeStyles((theme) => ({
+export default makeStyles(theme => ({
   link: {
     textDecoration: 'none',
     '&:hover, &:focus': {
-      backgroundColor: theme.palette.background.default,
-      '& > .MuiSvgIcon-root': {
-        display: 'inline-block',
-      },
+      backgroundColor: 'rgba(0, 0, 0, 0.08)',
     },
-    '&.Mui-focusVisible': {
-      backgroundColor: 'transparent',
-    },
-  },
-  externalLink: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textDecoration: 'none'
+    padding: theme.spacing(1, 2),
   },
   linkActive: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+    borderLeft: '4px solid #3f51b5', // Primary color border for active items
+    paddingLeft: 12, // Adjusted for the border
   },
   linkNested: {
-    paddingLeft: 25,
-    '&:hover, &:focus': {
-      backgroundColor:
-        theme.palette.type === 'dark'
-          ? theme.palette.background.light
-          : '#FFFFFF',
-    },
+    paddingLeft: theme.spacing(4),
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
   },
   linkIcon: {
     marginRight: theme.spacing(1),
-    color:
-      theme.palette.type === 'dark'
-        ? '#616168 !important'
-        : theme.palette.text.secondary + '99',
-    transition: theme.transitions.create('color'),
-    display: 'flex',
-    justifyContent: 'center',
+    minWidth: 24,
+    color: '#6E6E6E',
+    transition: 'all 0.3s',
+    fontSize: '1.5rem', // Larger icons for better visibility
   },
   linkIconActive: {
-    color: `${theme.palette.primary.main} !important`,
+    color: '#3f51b5',
   },
   linkText: {
     padding: 0,
-    color:
-      theme.palette.type === 'dark'
-        ? '#D6D6D6 !important'
-        : theme.palette.text.secondary + 'CC',
-    transition: theme.transitions.create(['opacity', 'color']),
-    fontSize: 14,
+    color: '#4A4A4A',
+    fontWeight: 500,
+    transition: 'opacity 0.3s',
+    fontSize: '1rem', // More readable text size
   },
   linkTextActive: {
-    color: theme.palette.text.primary,
+    color: '#3f51b5',
+    fontWeight: 600,
   },
   linkTextHidden: {
     opacity: 0,
   },
-  nestedList: {
-    paddingLeft: 0,
-  },
   sectionTitle: {
-    marginLeft: theme.spacing(4.5),
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    color: '#4A4A4A',
+    fontWeight: 700,
+    fontSize: '0.8rem',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   divider: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    height: 1,
-    backgroundColor:
-      theme.palette.type === 'dark' ? 'rgba(151,151,151, .15)' : '#D8D8D880',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
   },
   expand: {
+    transform: 'rotate(0deg)',
+    transition: 'transform 0.3s',
+    color: '#6E6E6E',
+  },
+  expandOpen: {
     transform: 'rotate(180deg)',
   },
-  expandWrapper: {
-    color: theme.palette.text.secondary + '99',
-    transition: theme.transitions.create('transform'),
-    display: (props) => (props ? 'inline-flex' : 'none'),
-    marginLeft: 'auto',
+  expandActive: {
+    color: '#3f51b5',
   },
-  nestedMenu: {
-    paddingLeft: 0,
+  nestedList: {
+    paddingLeft: theme.spacing(2),
   },
-  nestedMenuItem: {
-    paddingLeft: 0,
+  nestedLink: {
+    paddingLeft: theme.spacing(3),
+    transition: 'all 0.3s',
   },
 }));
