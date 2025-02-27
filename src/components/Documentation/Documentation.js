@@ -20,8 +20,9 @@ import ButtonsPage from './pages/buttons';
 //components
 import Header from './components/Header';
 import Sidebar from '../../components/Sidebar';
-import structure from './components/Sidebar/SidebarStructure';
+import SidebarStructure from './components/Sidebar/SidebarStructure';
 import Widget from '../Widget';
+import { useLanguage } from '../../context/LanguageContext';
 
 import { Typography } from '../Wrappers';
 import classnames from 'classnames';
@@ -37,6 +38,11 @@ const Documentation = (props) => {
   let layoutState = useLayoutState();
   const classes = useStyles();
   const { path } = useRouteMatch();
+  const { t } = useLanguage();
+  
+  // Get the structure by calling the function
+  const structure = SidebarStructure();
+  
   return (
     <div className={classes.root}>
       <Header />
