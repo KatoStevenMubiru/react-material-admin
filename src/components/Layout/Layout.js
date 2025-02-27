@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 
@@ -77,7 +77,8 @@ import UsersFormPage from 'pages/CRUD/Users/form/UsersFormPage';
 import UsersTablePage from 'pages/CRUD/Users/table/UsersTablePage';
 
 //Sidebar structure
-import structure from '../Sidebar/SidebarStructure'
+import SidebarStructure from '../Sidebar/SidebarStructure';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Redirect = (props) => {
   useEffect(() => window.location.replace(props.url));
@@ -86,10 +87,19 @@ const Redirect = (props) => {
 
 function Layout(props) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mailMenu, setMailMenu] = useState(null);
+  const [isMailsUnread, setIsMailsUnread] = useState(true);
+  const [isNotificationsUnread, setIsNotificationsUnread] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  
+  // Get the structure by calling the function
+  const structure = SidebarStructure();
+  
+  // Define open here
   const open = Boolean(anchorEl);
   const id = open ? 'add-section-popover' : undefined;
+  
   const handleClick = (event) => {
     setAnchorEl(open ? null : event.currentTarget);
   };
