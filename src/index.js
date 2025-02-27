@@ -12,6 +12,7 @@ import * as serviceWorker from './serviceWorker';
 import { LayoutProvider } from './context/LayoutContext';
 import { UserProvider } from './context/UserContext';
 import { ManagementProvider } from './context/ManagementContext';
+import { LanguageProvider } from './context/LanguageContext';
 import createRootReducer from './reducers';
 import {
   ThemeProvider as ThemeChangeProvider,
@@ -51,20 +52,22 @@ root.render(
   <Provider store={store}>
     <LayoutProvider>
       <UserProvider>
-        <StyledEngineProvider injectFirst>
-          <ThemeChangeProvider>
-            <ThemeStateContext.Consumer>
-              {(theme) => (
-                <ThemeProviderV5 theme={theme}>
-                  <ManagementProvider>
-                    <CssBaseline />
-                    <App />
-                  </ManagementProvider>
-                </ThemeProviderV5>
-              )}
-            </ThemeStateContext.Consumer>
-          </ThemeChangeProvider>
-        </StyledEngineProvider>
+        <LanguageProvider>
+          <StyledEngineProvider injectFirst>
+            <ThemeChangeProvider>
+              <ThemeStateContext.Consumer>
+                {(theme) => (
+                  <ThemeProviderV5 theme={theme}>
+                    <ManagementProvider>
+                      <CssBaseline />
+                      <App />
+                    </ManagementProvider>
+                  </ThemeProviderV5>
+                )}
+              </ThemeStateContext.Consumer>
+            </ThemeChangeProvider>
+          </StyledEngineProvider>
+        </LanguageProvider>
       </UserProvider>
     </LayoutProvider>
   </Provider>,
