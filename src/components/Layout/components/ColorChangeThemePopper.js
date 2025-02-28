@@ -20,18 +20,27 @@ import { useThemeDispatch } from '../../../context/ThemeContext';
 function ColorChangeThemePopper({ open, id, anchorEl }) {
   const classes = useStyles();
   let themeDispatch = useThemeDispatch();
+  
   const handleChangeTheme = (e) => {
-    localStorage.setItem('theme', e.target.value);
-    themeDispatch(Themes[e.target.value]);
+    try {
+      localStorage.setItem('theme', e.target.value);
+      themeDispatch(Themes[e.target.value]);
+    } catch (error) {
+      console.error("Error changing theme:", error);
+    }
   };
 
   const toggleDarkTheme = () => {
-    if (localStorage.getItem('theme') === 'dark') {
-      localStorage.setItem('theme', 'default');
-      themeDispatch(Themes.default);
-    } else {
-      localStorage.setItem('theme', 'dark');
-      themeDispatch(Themes.dark);
+    try {
+      if (localStorage.getItem('theme') === 'dark') {
+        localStorage.setItem('theme', 'default');
+        themeDispatch(Themes.default);
+      } else {
+        localStorage.setItem('theme', 'dark');
+        themeDispatch(Themes.dark);
+      }
+    } catch (error) {
+      console.error("Error toggling dark theme:", error);
     }
   };
 
