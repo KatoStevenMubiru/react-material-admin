@@ -76,6 +76,9 @@ import { ProductsProvider } from '../../context/ProductContext'
 import UsersFormPage from 'pages/CRUD/Users/form/UsersFormPage';
 import UsersTablePage from 'pages/CRUD/Users/table/UsersTablePage';
 
+// Settings Page
+import SettingsPage from '../../pages/settings/SettingsPage';
+
 //Sidebar structure
 import SidebarStructure from '../Sidebar/SidebarStructure';
 import { useLanguage } from '../../context/LanguageContext';
@@ -98,10 +101,14 @@ function Layout(props) {
   
   // Define open here
   const open = Boolean(anchorEl);
-  const id = open ? 'add-section-popover' : undefined;
+  const id = open ? 'theme-settings-popover' : undefined;
   
   const handleClick = (event) => {
-    setAnchorEl(open ? null : event.currentTarget);
+    try {
+      setAnchorEl(open ? null : event.currentTarget);
+    } catch (error) {
+      console.error("Error toggling theme settings:", error);
+    }
   };
 
   // global
@@ -122,6 +129,7 @@ function Layout(props) {
           <Route path='/app/dashboard' component={Dashboard} />
           <Route path="/app/profile" component={Profile} />
           <Route path='/app/user/edit' component={EditUser} />
+          <Route path='/app/settings' component={SettingsPage} />
 
           <Route exact path="/app/core" render={() => <Redirect to="/app/core/typography" />} />
           <Route path="/app/core/typography" component={TypographyPage} />
@@ -187,8 +195,6 @@ function Layout(props) {
           <Route path="/app/ecommerce/product" component={Product} />
           <Route path="/app/ecommerce/gridproducts" component={ProductsGrid}/>
 
-          />
-
           <Route path={'/app/users'} exact component={UsersTablePage} />
           <Route path={'/app/user/new'} exact component={UsersFormPage} />
           <Route
@@ -199,10 +205,11 @@ function Layout(props) {
         </Switch>
         <Fab
           color='primary'
-          aria-label='settings'
+          aria-label='theme settings'
           onClick={(e) => handleClick(e)}
           className={classes.changeThemeFab}
           style={{ zIndex: 100 }}
+          title="Toggle Light/Dark Mode"
         >
           <SettingsIcon style={{ color: '#fff' }} />
         </Fab>
