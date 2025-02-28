@@ -41,6 +41,11 @@ if (token) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 }
 
+// Set default theme to light mode if not already set
+if (!localStorage.getItem('theme')) {
+  localStorage.setItem('theme', 'default');
+}
+
 export const store = createStore(
   createRootReducer(history),
   compose(applyMiddleware(routerMiddleware(history), ReduxThunk)),
