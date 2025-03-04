@@ -33,6 +33,7 @@ import {
   HelpOutline as HelpIcon,
   Save as SaveIcon,
   AccessibilityNew as AccessibilityIcon,
+  Language as LanguageIcon,
 } from '@mui/icons-material';
 
 // styles
@@ -40,6 +41,7 @@ import useStyles from './styles';
 
 // components
 import Widget from '../../components/Widget/Widget';
+import AccessibilitySettings from './accessibility/AccessibilitySettings';
 
 // context
 import { useLanguage } from '../../context/LanguageContext';
@@ -102,7 +104,7 @@ const settingsTranslations = {
     recoverySection: 'Ebigyimo by\'Okuwona',
     therapySection: 'Enteekateka y\'Okubudaabudibwa',
     contactsSection: 'Enamba z\'Obuyambi',
-    academicSection: 'Enteekateka z\'Okuwona n\'Okusoma mu Makerere',
+    academicSection: 'Enteekateeka z\'Okuwona n\'Okusoma mu Makerere',
     primaryContact: 'Eyasooka okutuukirira mu Bwangu',
     secondaryContact: 'Owookubiri okutuukirira mu Bwangu',
     name: 'Erinnya',

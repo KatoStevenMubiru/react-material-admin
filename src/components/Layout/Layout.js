@@ -24,6 +24,7 @@ import EditUser from '../../pages/user/EditUser';
 // pages
 import Dashboard from '../../pages/dashboard';
 import Profile from '../../pages/profile'
+import SupportResources from '../../pages/support-resources/SupportResources'
 import TypographyPage from '../../pages/typography'
 import ColorsPage from '../../pages/colors'
 import GridPage from '../../pages/grid'
@@ -66,6 +67,10 @@ import Search from '../../pages/search'
 import Gallery from '../../pages/gallery'
 import Invoice from '../../pages/invoice'
 import Calendar from '../../pages/calendar'
+import EmergencyPage from '../../pages/emergency/EmergencyPage'
+import CommunitySupport from '../../pages/community/CommunitySupport'
+import HelpFAQ from '../../pages/help/HelpFAQ'
+import Medication from '../../pages/medication/Medication'
 
 import BreadCrumbs from '../../components/BreadCrumbs';
 
@@ -130,6 +135,11 @@ function Layout(props) {
           <Route path="/app/profile" component={Profile} />
           <Route path='/app/user/edit' component={EditUser} />
           <Route path='/app/settings' component={SettingsPage} />
+          <Route path='/app/emergency' component={EmergencyPage} />
+          <Route path='/app/support-resources' component={SupportResources} />
+          <Route path='/app/community' component={CommunitySupport} />
+          <Route path='/app/help' component={HelpFAQ} />
+          <Route path="/app/medication" component={Medication} />
 
           <Route exact path="/app/core" render={() => <Redirect to="/app/core/typography" />} />
           <Route path="/app/core/typography" component={TypographyPage} />

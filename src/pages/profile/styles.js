@@ -1,13 +1,39 @@
 import { makeStyles } from "@mui/styles";
+import { alpha } from "@mui/material/styles";
 
 export default makeStyles(theme => ({
   root: {}, 
+  // Recovery-specific profile styles
+  recoveryProfileContainer: {
+    padding: 24,
+    marginBottom: 16,
+  },
+  profileHeader: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 24,
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 16,
+    },
+  },
+  profileTitle: {
+    fontSize: 28,
+    fontWeight: 600,
+    textAlign: 'center',
+    margin: '16px 0',
+    color: theme.palette.primary.main,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 24,
+    },
+  },
   visualProfile: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 24
+    marginTop: 24,
   },
   profileImage: {
     padding: 5,
@@ -16,36 +42,215 @@ export default makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    '@media (max-width: 768px)': {
-      maxWidth: 200
-    }
+    [theme.breakpoints.down('md')]: {
+      maxWidth: 200,
+    },
+    '&:focus': {
+      outline: `3px solid ${theme.palette.primary.main}`,
+    },
   },
   profileDescription: {
     marginTop: 24,
-    paddingLeft: 20
+    paddingLeft: 20,
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 10,
+      textAlign: 'center',
+    },
   },
-  profileTitle: {
-    fontSize: 32,
-    fontFamily: 'Roboto',
-    fontWeight: 600,
-    display: 'block'
-  },
-  profileSubtitle: {
-    color: theme.palette.text.primary,
-    opacity: 0.5,
-    fontSize: 12,
-    marginTop: 20,
-    display: 'block',
-    fontWeight: 500,
-  },
-  profileExternalRes: {
+  profileLabel: {
     fontSize: 16,
-    margin: '12px 0 25px',
-    color: theme.palette.primary.main,
+    fontWeight: 600,
+    color: theme.palette.text.secondary,
+    marginBottom: 8,
     display: 'block',
-    marginTop: 4,
-    textDecoration: 'none',
   },
+  profileValue: {
+    fontSize: 16,
+    marginBottom: 16,
+    display: 'block',
+    wordBreak: 'break-word',
+  },
+  // Section styles
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 600,
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 16,
+    color: theme.palette.primary.main,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 18,
+    },
+  },
+  sectionIcon: {
+    marginRight: 16,
+    color: theme.palette.primary.main,
+    fontSize: 32,
+  },
+  accordion: {
+    margin: '8px 0',
+    borderRadius: 8,
+    '&.MuiAccordion-root:before': {
+      display: 'none',
+    },
+    '&.Mui-expanded': {
+      margin: '8px 0',
+    },
+    boxShadow: theme.customShadows.widget,
+  },
+  accordionSummary: {
+    padding: '0 16px',
+    minHeight: 56,
+    '&.Mui-expanded': {
+      minHeight: 56,
+    },
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.primary.main, 0.05),
+    },
+    '&:focus': {
+      backgroundColor: alpha(theme.palette.primary.main, 0.1),
+    },
+  },
+  accordionDetails: {
+    padding: '8px 16px 16px',
+    display: 'block',
+  },
+  recoveryButtonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: 24,
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+    },
+  },
+  recoveryButton: {
+    minWidth: 140,
+    height: 48,
+    fontSize: 16,
+    margin: '0 8px',
+    '&:focus': {
+      outline: `3px solid ${theme.palette.primary.main}`,
+    },
+    [theme.breakpoints.down('sm')]: {
+      minWidth: 120,
+      fontSize: 14,
+    },
+  },
+  // Privacy notice
+  privacyNotice: {
+    backgroundColor: alpha(theme.palette.error.main, 0.1),
+    padding: '16px',
+    borderRadius: 8,
+    marginTop: 16,
+    marginBottom: 24,
+    display: 'flex',
+    alignItems: 'center',
+    border: `1px solid ${alpha(theme.palette.error.main, 0.3)}`,
+  },
+  privacyIcon: {
+    color: theme.palette.error.main,
+    fontSize: 32,
+    marginRight: 16,
+  },
+  privacyText: {
+    color: theme.palette.text.primary,
+    fontSize: 16,
+    flexGrow: 1,
+  },
+  privacyLink: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    fontWeight: 600,
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+    '&:focus': {
+      outline: `2px solid ${theme.palette.primary.main}`,
+      outlineOffset: 2,
+    },
+  },
+  // Progress indicators
+  progressContainer: {
+    marginBottom: 16,
+  },
+  progressLabel: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  progressTitle: {
+    fontWeight: 600,
+    fontSize: 16,
+    color: theme.palette.text.primary,
+  },
+  progressValue: {
+    fontWeight: 400,
+    fontSize: 16,
+    color: theme.palette.primary.main,
+  },
+  progress: {
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: alpha(theme.palette.primary.main, 0.1),
+  },
+  progressBar: {
+    borderRadius: 6,
+    backgroundColor: theme.palette.primary.main,
+  },
+  progressBarSuccess: {
+    borderRadius: 6,
+    backgroundColor: theme.palette.success.main,
+  },
+  progressBarWarning: {
+    borderRadius: 6,
+    backgroundColor: theme.palette.warning.main,
+  },
+  progressBarInfo: {
+    borderRadius: 6,
+    backgroundColor: theme.palette.info.main,
+  },
+  // Support contact
+  supportContactButton: {
+    margin: '8px 0',
+    height: 48,
+    width: '100%',
+    justifyContent: 'flex-start',
+    textTransform: 'none',
+    padding: '0 16px',
+    borderRadius: 8,
+    border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`,
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.primary.main, 0.05),
+      border: `1px solid ${theme.palette.primary.main}`,
+    },
+    '&:focus': {
+      outline: `3px solid ${theme.palette.primary.main}`,
+    },
+  },
+  contactIcon: {
+    fontSize: 24,
+    marginRight: 16,
+  },
+  contactText: {
+    fontSize: 16,
+    fontWeight: 500,
+    textAlign: 'left',
+    flexGrow: 1,
+  },
+  // Responsive adjustments
+  mobileFullWidth: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
+  // Accessibility styles
+  accessibleFocus: {
+    '&:focus': {
+      outline: `3px solid ${theme.palette.primary.main}`,
+      outlineOffset: 2,
+    },
+  },
+  // Original styles (maintained for compatibility)
   chipMargin: {
     display: 'flex',
     justifyContent: 'end',
@@ -63,189 +268,18 @@ export default makeStyles(theme => ({
     alignItems: 'center',
     maxWidth: 180,
   },
-  mediaBlockPadding: {
-    padding: '0 24px 12px 24px',
-  },
-  widgetBody: {
-    padding: 0,
-  },
-  updateWidget: {
-    background: theme.palette.primary.main,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '24px 24px',
-    height: 90,
-    color: '#fff',
-    borderRadius: 4,
-  },
-  updateWidgetFlexContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  updateLabel: {
-    display: 'inline-block',
-    fontSize: '20px',
-    fontWeight: 400,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  spacer: {
-    flexGrow: 1,
-  },
-  detailsBtn: {
-    color: '#fff',
-    borderColor: '#fff',
-  },
   card: {
     minHeight: "100%",
     display: "flex",
     flexDirection: "column"
   },
-  progressSection: {
-    marginBottom: theme.spacing(1)
+  // Text styles
+  secondaryText: {
+    color: theme.palette.text.secondary,
   },
-  progressTitle: {
-    marginBottom: theme.spacing(2)
-  },
-  progress: {
-    marginBottom: theme.spacing(1),
-    backgroundColor: 'rgb(236, 236, 236)',
-  },
-  pieChartLegendWrapper: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-end",
-    marginRight: theme.spacing(1)
-  },
-  legendItemContainer: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: theme.spacing(1),
-    justifyContent: "space-between",
-    width: "100%"
-  },
-  fullHeightBody: {
-    display: "flex",
-    flexGrow: 1,
-    flexDirection: "column",
-    justifyContent: "space-between"
-  },
-  alignStandaloneElement: {
-    display: "flex",
-    flexGrow: 1,
-    flexDirection: "column",
-    justifyContent: "center"
-  },
-  tableWidget: {
-    overflowX: "auto"
-  },
-  progressBar: {
-    backgroundColor: theme.palette.warning.main
-  },
-  progressBarPrimary: {
-    backgroundColor: theme.palette.primary.main,
-  },
-  progressBarWarning: {
-    backgroundColor: theme.palette.warning.main,
-  },
-  performanceLegendWrapper: {
-    display: "flex",
-    flexGrow: 1,
-    alignItems: "center",
-    marginBottom: theme.spacing(1)
-  },
-  legendElement: {
-    display: "flex",
-    alignItems: "center",
-    marginRight: theme.spacing(2)
-  },
-  legendElementText: {
-    marginLeft: theme.spacing(1)
-  },
-  serverOverviewElement: {
-    display: "flex",
-    alignItems: "center",
-    maxWidth: "100%"
-  },
-  serverOverviewElementText: {
-    minWidth: 149,
-    paddingRight: theme.spacing(2)
-  },
-  serverOverviewElementChartWrapper: {
-    width: "100%"
-  },
-  mainChartBody: {
-    overflowX: "auto"
-  },
-  mainChartHeader: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    [theme.breakpoints.only("xs")]: {
-      flexWrap: "wrap"
-    }
-  },
-  mainChartHeaderLabels: {
-    display: "flex",
-    alignItems: "center",
-    [theme.breakpoints.only("xs")]: {
-      order: 3,
-      width: "100%",
-      justifyContent: "center",
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(2)
-    }
-  },
-  mainChartHeaderLabel: {
-    display: "flex",
-    alignItems: "center",
-    marginLeft: theme.spacing(3)
-  },
-  mainChartSelectRoot: {
-    borderColor: theme.palette.text.hint + "80 !important"
-  },
-  mainChartSelect: {
-    padding: 10,
-    paddingRight: 25
-  },
-  mainChartLegentElement: {
-    fontSize: "14px !important",
-    marginLeft: theme.spacing(1)
-  },
-  table: {
-    minWidth: 750
-  },
-  tableWrapper: {
-    overflowX: "auto"
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: "rect(0 0 0 0)",
-    height: 1,
-    margin: -1,
-    overflow: "hidden",
-    padding: 0,
-    position: "absolute",
-    top: 20,
-    width: 1
-  },
-  fixIconRight: {
-    "& .MuiSelect-icon": {
-      right: 4
-    }
-  },
-  actionsIcon: {
-    color: "#76767B"
-  },
-  adjustHeight: {
-    height: '100%',
-    '@media (max-width: 1280px)': {
-        height: 'auto'
-    }
+  smallSecondaryText: {
+    color: theme.palette.text.secondary,
+    fontSize: 14,
+    display: 'block',
   },
 }));

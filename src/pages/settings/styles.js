@@ -1,7 +1,72 @@
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material/styles';
 
+// Define consistent colors
+const COLORS = {
+  primary: '#536DFE',
+  error: '#ef5350',
+  success: '#3CD4A0',
+  neutral: '#757575',
+  text: {
+    primary: '#4A4A4A',
+    secondary: '#6E6E6E'
+  }
+};
+
 export default makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(3),
+  },
+  title: {
+    marginBottom: theme.spacing(3),
+    color: COLORS.text.primary,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.5rem',
+    },
+  },
+  paper: {
+    boxShadow: '0 6px 10px rgba(0,0,0,0.08)',
+    transition: 'all 0.3s',
+    '&:hover': {
+      boxShadow: '0 10px 20px rgba(0,0,0,0.12)',
+    },
+  },
+  tabs: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    '& .MuiTab-root': {
+      minHeight: 48,
+      minWidth: 120,
+      color: COLORS.text.primary,
+      [theme.breakpoints.down('sm')]: {
+        minWidth: 'auto',
+      },
+    },
+  },
+  tabPanel: {
+    padding: theme.spacing(3),
+  },
+  icon: {
+    marginRight: theme.spacing(2),
+    color: COLORS.primary,
+    fontSize: 48,
+  },
+  formControl: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    width: '100%',
+  },
+  switch: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  button: {
+    minHeight: 48,
+    minWidth: 200,
+    color: COLORS.text.primary,
+  },
+  divider: {
+    margin: theme.spacing(3, 0),
+  },
   settingsContainer: {
     marginBottom: theme.spacing(4),
   },
@@ -10,24 +75,24 @@ export default makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     marginBottom: theme.spacing(2),
-    backgroundColor: '#2196f3',
-    color: 'white',
+    backgroundColor: COLORS.primary,
+    color: '#ffffff',
     borderRadius: '8px',
     boxShadow: '0 4px 12px rgba(33, 150, 243, 0.2)',
     '&:focus-visible': {
-      outline: `3px solid ${theme.palette.primary.main}`,
+      outline: `3px solid ${COLORS.primary}`,
       outlineOffset: '2px',
     },
   },
   headerIcon: {
     fontSize: 48,
     marginRight: theme.spacing(2),
-    color: 'white',
+    color: '#ffffff',
   },
   pageTitle: {
     fontSize: 28,
     fontWeight: 600,
-    color: 'white',
+    color: '#ffffff',
     [theme.breakpoints.down('sm')]: {
       fontSize: 24,
     },
@@ -38,40 +103,25 @@ export default makeStyles(theme => ({
   sectionIcon: {
     fontSize: 32,
     marginRight: theme.spacing(2),
-    color: theme.palette.primary.main,
-  },
-  divider: {
-    margin: theme.spacing(2, 0),
+    color: COLORS.primary,
   },
   formControlLabel: {
     display: 'flex',
     marginBottom: theme.spacing(1.5),
     '&:focus-within': {
-      backgroundColor: alpha(theme.palette.primary.main, 0.05),
+      backgroundColor: alpha(COLORS.primary, 0.05),
       borderRadius: 4,
     },
     minHeight: 48,
     '&:hover': {
-      backgroundColor: alpha(theme.palette.primary.main, 0.08),
+      backgroundColor: alpha(COLORS.primary, 0.08),
       borderRadius: 4,
-    },
-  },
-  switch: {
-    '& .MuiSwitch-switchBase': {
-      padding: 12,
-    },
-    '& .MuiSwitch-thumb': {
-      width: 24,
-      height: 24,
-    },
-    '& .MuiSwitch-track': {
-      borderRadius: 16,
-      opacity: 0.8,
     },
   },
   settingLabel: {
     fontSize: 18,
     marginLeft: theme.spacing(1),
+    color: COLORS.text.primary,
     [theme.breakpoints.down('sm')]: {
       fontSize: 16,
     },
@@ -82,35 +132,37 @@ export default makeStyles(theme => ({
       minHeight: 56,
       fontSize: 18,
       '& fieldset': {
-        borderColor: alpha(theme.palette.primary.main, 0.3),
+        borderColor: alpha(COLORS.primary, 0.3),
       },
       '&:hover fieldset': {
-        borderColor: theme.palette.primary.main,
+        borderColor: COLORS.primary,
       },
       '&.Mui-focused fieldset': {
-        borderColor: theme.palette.primary.main,
+        borderColor: COLORS.primary,
         borderWidth: 2,
       },
     },
     '& .MuiInputLabel-root': {
       fontSize: 18,
+      color: COLORS.text.secondary,
     },
     '& .MuiInputBase-input': {
       padding: theme.spacing(2),
+      color: COLORS.text.primary,
     },
   },
   privacyNotice: {
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(2),
-    backgroundColor: alpha('#ef5350', 0.1),
+    backgroundColor: alpha(COLORS.error, 0.1),
     borderRadius: 8,
     marginBottom: theme.spacing(2),
     flexWrap: 'wrap',
   },
   privacyText: {
     fontSize: 18,
-    color: '#ef5350',
+    color: COLORS.error,
     display: 'flex',
     alignItems: 'center',
     fontWeight: 500,
@@ -118,7 +170,7 @@ export default makeStyles(theme => ({
     minWidth: 260,
   },
   privacyLink: {
-    color: theme.palette.primary.main,
+    color: COLORS.primary,
     marginLeft: theme.spacing(2),
     fontSize: 16,
     fontWeight: 500,
@@ -127,7 +179,7 @@ export default makeStyles(theme => ({
       textDecoration: 'none',
     },
     '&:focus-visible': {
-      outline: `3px solid ${theme.palette.primary.main}`,
+      outline: `3px solid ${COLORS.primary}`,
       outlineOffset: '2px',
     },
   },
@@ -161,9 +213,9 @@ export default makeStyles(theme => ({
       },
     },
     '&:focus-visible': {
-      outline: `3px solid ${theme.palette.primary.main}`,
+      outline: `3px solid ${COLORS.primary}`,
       outlineOffset: '2px',
-      backgroundColor: alpha(theme.palette.primary.main, 0.08),
+      backgroundColor: alpha(COLORS.primary, 0.08),
     },
   },
   accordionDetails: {
@@ -174,18 +226,8 @@ export default makeStyles(theme => ({
     marginBottom: theme.spacing(2),
     fontSize: 20,
     color: theme.palette.text.primary,
-    borderLeft: `4px solid ${theme.palette.primary.main}`,
+    borderLeft: `4px solid ${COLORS.primary}`,
     paddingLeft: theme.spacing(1.5),
-  },
-  formControl: {
-    marginBottom: theme.spacing(2),
-    '& .MuiOutlinedInput-root': {
-      minHeight: 56,
-      fontSize: 18,
-    },
-    '& .MuiInputLabel-root': {
-      fontSize: 18,
-    },
   },
   select: {
     minHeight: 56,
@@ -196,10 +238,10 @@ export default makeStyles(theme => ({
   },
   academicBox: {
     padding: theme.spacing(2),
-    backgroundColor: alpha(theme.palette.primary.main, 0.08),
+    backgroundColor: alpha(COLORS.primary, 0.08),
     borderRadius: 8,
     marginBottom: theme.spacing(2),
-    borderLeft: `4px solid ${theme.palette.primary.main}`,
+    borderLeft: `4px solid ${COLORS.primary}`,
   },
   academicNote: {
     fontSize: 18,
@@ -211,7 +253,8 @@ export default makeStyles(theme => ({
     padding: theme.spacing(1.5, 4),
     fontSize: 18,
     borderRadius: 8,
-    backgroundColor: '#3CD4A0', // success color
+    backgroundColor: COLORS.success,
+    color: '#ffffff',
     '&:hover': {
       backgroundColor: '#2AAB7D',
     },
@@ -219,7 +262,19 @@ export default makeStyles(theme => ({
     minHeight: 56,
     minWidth: 200,
     '&:focus-visible': {
-      outline: `3px solid ${theme.palette.primary.main}`,
+      outline: `3px solid ${COLORS.primary}`,
+      outlineOffset: '2px',
+    },
+  },
+  expandIconButton: {
+    padding: 8,
+    color: COLORS.text.secondary,
+    backgroundColor: alpha(theme.palette.background.paper, 0.8),
+    '&:hover': {
+      backgroundColor: alpha(COLORS.primary, 0.08),
+    },
+    '&:focus-visible': {
+      outline: `3px solid ${COLORS.primary}`,
       outlineOffset: '2px',
     },
   },
@@ -271,7 +326,7 @@ export default makeStyles(theme => ({
     // Simplified styles for low-bandwidth conditions
     headerPaper: {
       boxShadow: 'none',
-      border: `1px solid ${theme.palette.primary.main}`,
+      border: `1px solid ${COLORS.primary}`,
     },
     accordion: {
       boxShadow: 'none',

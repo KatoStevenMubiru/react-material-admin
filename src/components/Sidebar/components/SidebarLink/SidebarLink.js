@@ -45,6 +45,10 @@ export default function SidebarLink({
   badgeColor,
   isEmergency,
   isTouch,
+  directAction,
+  directActionAttr,
+  dbPrepared,
+  dataCollectionFields,
   ...props
 }) {
   // local
@@ -65,6 +69,9 @@ export default function SidebarLink({
   const mainClasses = sidebarStyles();
   let isLinkActive =
     link && (location.pathname === link || location.pathname.includes(link));
+
+  // Check if link has hash for direct section navigation
+  const hasHashLink = link && link.includes('#');
 
   if (type === 'title')
     return (
@@ -105,6 +112,9 @@ export default function SidebarLink({
         placement="right"
         classes={{ tooltip: mainClasses.descriptionTooltip }}
         arrow
+        enterDelay={200}
+        leaveDelay={0}
+        aria-label={`${label} - ${description}`}
       >
         {content}
       </Tooltip>
@@ -121,10 +131,21 @@ export default function SidebarLink({
     {
       [classes.linkActive]: isLinkActive,
       [mainClasses.emergencyButton]: isEmergency,
+      [mainClasses.nestedLink]: nested,
+      [mainClasses.directActionItem]: directAction,
     }
   );
 
-  if (!children && ext)
+  // Focus visible class for keyboard navigation
+  const focusVisibleClass = mainClasses.focusVisible || '';
+
+  // External link or direct action item
+  if ((!children && ext) || directAction) {
+    // Determine link attribute for direct action items (like tel: links)
+    const linkAttr = directAction ? directActionAttr : link;
+    const linkTarget = directAction ? '_self' : '_blank';
+    const linkRel = directAction ? undefined : 'noopener noreferrer';
+    
     return (
       <>
         {linkWithTooltip(
@@ -137,17 +158,32 @@ export default function SidebarLink({
               }
               return toggleDrawer(e);
             }}
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={linkAttr}
+            target={linkTarget}
+            rel={linkRel}
             className={listItemClasses}
+            classes={{
+              focusVisible: focusVisibleClass
+            }}
             disableRipple
+            data-testid={`sidebar-link-${label.toLowerCase().replace(/\s+/g, '-')}`}
+            data-emergency={isEmergency ? 'true' : undefined}
+            data-direct-action={directAction ? 'true' : undefined}
+            data-action-type={directAction ? directActionAttr.split(':')[0] : undefined}
+            data-db-prepared={dbPrepared ? 'true' : undefined}
+            role="menuitem"
+            aria-label={description || label}
+            aria-current={isLinkActive ? 'page' : undefined}
+            aria-haspopup={directAction ? 'true' : undefined}
+            aria-expanded={directAction ? 'false' : undefined}
             {...props}
           >
             <ListItemIcon
               className={classnames(classes.linkIcon, {
                 [classes.linkIconActive]: isLinkActive,
+                [classes.emergencyIcon]: isEmergency,
               })}
+              aria-hidden="true"
             >
               {icon || <InboxIcon />}
             </ListItemIcon>
@@ -156,18 +192,31 @@ export default function SidebarLink({
                 primary: classnames(classes.linkText, {
                   [classes.linkTextHidden]: !isSidebarOpened,
                   [classes.linkTextActive]: isLinkActive,
+                  [classes.emergencyText]: isEmergency,
                 }),
               }}
               primary={label}
+              id={`sidebar-link-${label.toLowerCase().replace(/\s+/g, '-')}`}
             />
             {badge && (
-              <Badge color={badgeColor || 'secondary'} variant="outlined" badgeContent={badge} />
+              <Badge 
+                color={badgeColor || 'secondary'} 
+                variant="outlined" 
+                badgeContent={badge}
+                className={isEmergency ? classes.emergencyBadge : undefined}
+                aria-label={`${badge} notifications`}
+              />
+            )}
+            {directAction && (
+              <Box className={classes.directActionIndicator} aria-hidden="true" />
             )}
           </ListItem>
         )}
       </>
     );
+  }
 
+  // Internal link without children
   if (!children)
     return (
       <>
@@ -183,13 +232,21 @@ export default function SidebarLink({
             }}
             to={link}
             className={listItemClasses}
+            classes={{
+              focusVisible: focusVisibleClass
+            }}
             disableRipple
+            data-testid={`sidebar-link-${label.toLowerCase().replace(/\s+/g, '-')}`}
+            role="menuitem"
+            aria-label={description || label}
+            aria-current={isLinkActive ? 'page' : undefined}
             {...props}
           >
             <ListItemIcon
               className={classnames(classes.linkIcon, {
                 [classes.linkIconActive]: isLinkActive,
               })}
+              aria-hidden="true"
             >
               {icon || <InboxIcon />}
             </ListItemIcon>
@@ -201,9 +258,15 @@ export default function SidebarLink({
                 }),
               }}
               primary={label}
+              id={`sidebar-link-${label.toLowerCase().replace(/\s+/g, '-')}`}
             />
             {badge && (
-              <Badge color={badgeColor || 'secondary'} variant="outlined" badgeContent={badge} />
+              <Badge 
+                color={badgeColor || 'secondary'} 
+                variant="outlined" 
+                badgeContent={badge}
+                aria-label={`${badge} notifications`}
+              />
             )}
           </ListItem>
         )}
@@ -217,7 +280,11 @@ export default function SidebarLink({
     }
   }
 
+  // Link with children (collapsible)
   if (children) {
+    // Ensure children is an array
+    const childrenArray = Array.isArray(children) ? children : [children];
+    
     return (
       <>
         {linkWithTooltip(
@@ -227,7 +294,11 @@ export default function SidebarLink({
             onClick={toggleCollapse}
             className={classnames(listItemClasses, classes.nestedLink)}
             to={link}
+            classes={{
+              focusVisible: focusVisibleClass
+            }}
             disableRipple
+            data-testid={`sidebar-link-${label.toLowerCase().replace(/\s+/g, '-')}`}
             {...props}
             aria-expanded={isOpen}
           >
@@ -251,7 +322,7 @@ export default function SidebarLink({
               <Badge color={badgeColor || 'secondary'} variant="outlined" badgeContent={badge} />
             )}
             <ExpandIcon
-              className={classnames(classes.expand, {
+              className={classnames(classes.expand, mainClasses.expandIcon, {
                 [classes.expandOpen]: isOpen,
                 [classes.expandActive]: isLinkActive,
               })}
@@ -264,12 +335,12 @@ export default function SidebarLink({
             in={isOpen && isSidebarOpened}
             timeout="auto"
             unmountOnExit
-            className={classes.nestedMenu}
+            className={classnames(classes.nestedMenu, mainClasses.nestedList)}
           >
             <List component="div" disablePadding>
-              {children.map(childrenLink => (
+              {childrenArray.map((childrenLink, index) => (
                 <SidebarLink
-                  key={childrenLink.label}
+                  key={childrenLink.label || `child-${index}`}
                   location={location}
                   isSidebarOpened={isSidebarOpened}
                   classes={classes}

@@ -1,28 +1,13 @@
 import React from 'react';
 import {
-  Home as HomeIcon,
-  Assignment as ProgressIcon,
-  CalendarToday as ScheduleIcon,
-  LocalHospital as MedicationIcon,
-  Psychology as TherapyIcon,
-  Group as SupportGroupIcon,
+  Warning as EmergencyIcon,
   Person as ProfileIcon,
-  Settings as SettingsIcon,
-  EmojiEvents as MilestonesIcon,
-  School as EducationIcon,
-  ReportProblem as EmergencyIcon,
-  HelpOutline as HelpIcon,
+  LocalHospital as MedicationIcon,
   SupportAgent as SupportIcon,
-  Info as ResourcesIcon,
-  Notifications as AlertsIcon,
-  AccessibilityNew as AccessibilityIcon,
-  Dashboard as RecoveryIcon,
-  Timeline as ProgressChartIcon,
-  People as PatientsIcon,
   Groups as CommunityIcon,
-  Shield as ConfidentialityIcon,
-  Call as ContactsIcon,
-  Healing as RecoveryToolsIcon
+  HelpOutline as HelpIcon,
+  Settings as SettingsIcon,
+  Dashboard as RecoveryIcon,
 } from '@mui/icons-material';
 
 // components
@@ -30,236 +15,214 @@ import Dot from './components/Dot';
 
 // Import language hook
 import { useLanguage } from '../../context/LanguageContext';
+import { useAuth } from '../../context/AuthContext';
 
 // User role (would come from auth context in a real implementation)
 const userRole = 'patient'; // or 'counselor'
 
+const sidebarTranslations = {
+  en: {
+    emergencySOSTitle: 'Emergency SOS',
+    emergencySOSDescription: 'Get immediate help in crisis situations',
+    dashboardTitle: 'Dashboard',
+    dashboardDescription: 'View your recovery progress and insights',
+    profileTitle: 'Profile',
+    profileDescription: 'Manage your personal information',
+    medicationTitle: 'Medication',
+    medicationDescription: 'Track and manage your medication schedule',
+    supportResourcesTitle: 'Support Resources',
+    supportResourcesDescription: 'Access helpful recovery resources',
+    communityTitle: 'Community',
+    communityDescription: 'Connect with peers in recovery',
+    helpTitle: 'Help',
+    helpDescription: 'Get assistance using the application',
+    settingsTitle: 'Settings',
+    settingsDescription: 'Customize your application preferences',
+    notificationPreferencesTitle: 'Notifications',
+    notificationPreferencesDescription: 'Manage your notification settings',
+    privacySettingsTitle: 'Privacy',
+    privacySettingsDescription: 'Control your privacy settings',
+    accessibilitySettingsTitle: 'Accessibility',
+    accessibilitySettingsDescription: 'Customize accessibility options',
+    languageSettingsTitle: 'Language',
+    languageSettingsDescription: 'Change application language'
+  },
+  lg: {
+    emergencySOSTitle: 'Obuyambi bwangu',
+    emergencySOSDescription: 'Funa obuyambi bwangu mu mbeera ez\'obulabe',
+    dashboardTitle: 'Ekiwandiiko',
+    dashboardDescription: 'Laba enkulaakulana yo n\'ebirowozo',
+    profileTitle: 'Ebikwata ku ggwe',
+    profileDescription: 'Tereza ebikwata ku ggwe',
+    medicationTitle: 'Eddagala',
+    medicationDescription: 'Goberera era tereza enteekateeka y\'eddagala lyo',
+    supportResourcesTitle: 'Obuyambi',
+    supportResourcesDescription: 'Funa ebikozesebwa ebiyamba mu kuwona',
+    communityTitle: 'Ekibiina',
+    communityDescription: 'Yogera ne bannakibiina mu kuwona',
+    helpTitle: 'Obuyambi',
+    helpDescription: 'Funa obuyambi mu kukozesa aplikeesheni',
+    settingsTitle: 'Entegeka',
+    settingsDescription: 'Tegeka aplikeesheni yo nga bw\'oyagala',
+    notificationPreferencesTitle: 'Obubaka',
+    notificationPreferencesDescription: 'Tereza entegeka z\'obubaka',
+    privacySettingsTitle: 'Obukuumi',
+    privacySettingsDescription: 'Tereza entegeka z\'obukuumi',
+    accessibilitySettingsTitle: 'Enkozesa',
+    accessibilitySettingsDescription: 'Tegeka enkozesa y\'aplikeesheni',
+    languageSettingsTitle: 'Olulimi',
+    languageSettingsDescription: 'Kyusa olulimi lw\'aplikeesheni'
+  },
+  sw: {
+    emergencySOSTitle: 'Msaada wa Dharura',
+    emergencySOSDescription: 'Pata msaada wa haraka katika hali ya dharura',
+    dashboardTitle: 'Dashibodi',
+    dashboardDescription: 'Tazama maendeleo yako na ufahamu',
+    profileTitle: 'Wasifu',
+    profileDescription: 'Simamia taarifa zako binafsi',
+    medicationTitle: 'Dawa',
+    medicationDescription: 'Fuatilia na simamia ratiba yako ya dawa',
+    supportResourcesTitle: 'Rasilimali za Msaada',
+    supportResourcesDescription: 'Fikia rasilimali muhimu za kupona',
+    communityTitle: 'Jamii',
+    communityDescription: 'Unganisha na wenzako katika kupona',
+    helpTitle: 'Msaada',
+    helpDescription: 'Pata usaidizi wa kutumia programu',
+    settingsTitle: 'Mipangilio',
+    settingsDescription: 'Rekebisha mapendeleo yako ya programu',
+    notificationPreferencesTitle: 'Arifa',
+    notificationPreferencesDescription: 'Simamia mipangilio ya arifa',
+    privacySettingsTitle: 'Faragha',
+    privacySettingsDescription: 'Dhibiti mipangilio yako ya faragha',
+    accessibilitySettingsTitle: 'Ufikiaji',
+    accessibilitySettingsDescription: 'Rekebisha chaguo za ufikiaji',
+    languageSettingsTitle: 'Lugha',
+    languageSettingsDescription: 'Badilisha lugha ya programu'
+  }
+};
+
+/**
+ * The SidebarStructure component defines all sidebar navigation items
+ * for the AI-Driven Personalized Drug Addiction Recovery System.
+ * 
+ * Features:
+ * - Accessibility-focused with ARIA labels and proper descriptions
+ * - Touch-friendly targets (48px) for mobile interfaces
+ * - Emergency items prominently displayed for quick access
+ * - Multilingual support (English, Luganda, Swahili)
+ * - Role-based visibility for patient/counselor views
+ * - Analytics tracking attributes for user engagement metrics
+ */
 const SidebarStructure = () => {
-  // Use the language context
-  const { t } = useLanguage();
-
-  // Emergency Icon size increased for better visibility
-  const EMERGENCY_ICON_SIZE = 48;
-  const NORMAL_ICON_SIZE = 36;
-
-  const structure = [
-    // Support & Emergency section at the top for immediate access
-    { id: 0, type: 'title', label: t.support },
-    {
-      id: 1,
-      label: t.emergencyHelp,
-      link: '/app/emergency',
-      icon: <EmergencyIcon style={{ fontSize: EMERGENCY_ICON_SIZE, color: '#ef5350' }} />, // Larger size and high contrast color
-      description: 'Get immediate help for crisis situations',
-      badge: 'SOS',
-      badgeColor: 'error',
-      isEmergency: true, // Flag for emergency styling
-    },
-    {
-      id: 2,
-      label: t.emergencyContacts,
-      link: '/app/emergency-contacts',
-      icon: <ContactsIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Critical emergency contact information',
-    },
-    {
-      id: 3,
-      label: t.supportResources,
-      link: '/app/support-resources',
-      icon: <SupportIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Find counselors and support resources',
-    },
-    {
-      id: 4,
-      label: t.resources,
-      link: '/app/resources',
-      icon: <ResourcesIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Educational materials and self-help resources',
-    },
-    { id: 5, type: 'divider' },
-
-    // Recovery Dashboard (Main entry point)
-    { 
-      id: 6, 
-      label: t.recoveryDashboard, 
-      link: '/app/dashboard', 
-      icon: <RecoveryIcon style={{ fontSize: NORMAL_ICON_SIZE, color: '#2196f3' }} />, // Highlight dashboard with primary color
-      description: 'Your main recovery overview' 
-    },
-    { id: 7, type: 'divider' },
-    
-    // Progress & Planning section
-    { id: 8, type: 'title', label: t.recoveryJourney },
-    {
-      id: 9,
-      label: t.progressTracking,
-      link: '/app/progress',
-      icon: <ProgressChartIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Track your recovery journey progress',
-      children: [
-        {
-          label: 'Weekly Check-ins',
-          link: '/app/progress/checkins',
-          description: 'Complete your weekly assessment'
-        },
-        {
-          label: 'Recovery Goals',
-          link: '/app/progress/goals',
-          description: 'Set and track your goals'
-        },
-        {
-          label: 'Progress Charts',
-          link: '/app/progress/charts',
-          description: 'View your recovery charts'
-        }
-      ],
-    },
-    {
-      id: 10,
-      label: t.recoverySchedule,
-      link: '/app/schedule',
-      icon: <ScheduleIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Your recovery calendar and appointments',
-      children: [
-        {
-          label: 'Appointments',
-          link: '/app/schedule/appointments',
-          description: 'View your upcoming appointments'
-        },
-        {
-          label: 'Therapy Sessions',
-          link: '/app/schedule/therapy',
-          description: 'Manage therapy sessions'
-        },
-        {
-          label: 'Support Groups',
-          link: '/app/schedule/groups',
-          description: 'Find support group meetings'
-        }
-      ],
-    },
-    {
-      id: 11,
-      label: t.medication,
-      link: '/app/medication',
-      icon: <MedicationIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Medication management and reminders',
-      badge: 'Important',
-      badgeColor: 'error',
-    },
-    {
-      id: 12,
-      label: t.milestones,
-      link: '/app/milestones',
-      icon: <MilestonesIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Track important recovery achievements',
-    },
-    {
-      id: 13,
-      label: t.community,
-      link: '/app/community',
-      icon: <CommunityIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Connect with peers for community support',
-    },
-    {
-      id: 14,
-      label: t.academic,
-      link: '/app/academic',
-      icon: <EducationIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'University studies support',
-      children: [
-        {
-          label: 'Study Plans',
-          link: '/app/academic/study-plans',
-          description: 'Manage your study schedule'
-        },
-        {
-          label: 'Academic Resources',
-          link: '/app/academic/resources',
-          description: 'Access study materials'
-        },
-        {
-          label: 'Special Accommodations',
-          link: '/app/academic/accommodations',
-          description: 'Request university accommodations'
-        }
-      ],
-    },
-    { id: 15, type: 'divider' },
-    
-    // Personal section
-    { id: 16, type: 'title', label: t.personal },
-    { 
-      id: 17, 
-      label: t.profile, 
-      link: '/app/profile', 
-      icon: <ProfileIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Manage your personal information',
-    },
-    // Conditional item for counselors - always included but with role check inside
-    { 
-      id: 18, 
-      label: t.patients, 
-      link: '/app/patients', 
-      icon: <PatientsIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Manage patient information',
-      visible: userRole === 'counselor', // Only visible for counselors
-      children: [
-        {
-          label: 'Patient List',
-          link: '/app/patients/list',
-          description: 'View your patients'
-        },
-        {
-          label: 'Add Patient',
-          link: '/app/patients/add',
-          description: 'Register a new patient'
-        },
-        {
-          label: 'Patient Reports',
-          link: '/app/patients/reports',
-          description: 'Generate patient reports'
-        }
-      ]
-    },
-    {
-      id: 19,
-      label: t.settings,
-      link: '/app/settings',
-      icon: <SettingsIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Customize your recovery dashboard settings',
-    },
-    {
-      id: 20,
-      label: t.notifications,
-      link: '/app/notifications',
-      icon: <AlertsIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Manage alerts and reminders',
-    },
-    {
-      id: 21,
-      label: t.accessibility,
-      link: '/app/accessibility',
-      icon: <AccessibilityIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Customize your accessibility preferences',
-    },
-    { id: 22, type: 'divider' },
-    
-    // Help section
-    { id: 23, type: 'title', label: t.help },
-    { 
-      id: 24, 
-      label: t.helpFaq, 
-      link: '/app/help', 
-      icon: <HelpIcon style={{ fontSize: NORMAL_ICON_SIZE }} />,
-      description: 'Get help using the system'
-    },
-  ];
-
-  // Filter out items that should not be visible based on user role
-  const filteredStructure = structure.filter(item => item.visible !== false);
+  const { language } = useLanguage();
+  const { user } = useAuth();
+  const userRole = user?.role || 'patient';
   
-  return filteredStructure;
+  // Get translations based on current language
+  const t = sidebarTranslations[language] || sidebarTranslations.en;
+  
+  // Icon sizes standardized for consistency and accessibility
+  const EMERGENCY_ICON_SIZE = 48; // Larger for critical functions
+  const NORMAL_ICON_SIZE = 36; // Standard size for most items
+  
+  // High contrast colors from theme for better visibility
+  const EMERGENCY_COLOR = '#ef5350'; // Error red for urgent items
+  const PRIMARY_COLOR = '#2196f3'; // Primary blue for main actions
+  const SUCCESS_COLOR = '#3CD4A0'; // Success green for positive actions
+
+  return [
+    {
+      id: 'emergency',
+      label: t.emergencySOSTitle,
+      link: '/app/emergency',
+      icon: <EmergencyIcon style={{ fontSize: EMERGENCY_ICON_SIZE, color: EMERGENCY_COLOR }} />,
+      info: t.emergencySOSDescription,
+      priority: 'high',
+    },
+    {
+      id: 'dashboard',
+      label: t.dashboardTitle,
+      link: '/app/dashboard',
+      icon: <RecoveryIcon style={{ fontSize: NORMAL_ICON_SIZE, color: PRIMARY_COLOR }} />,
+      info: t.dashboardDescription,
+    },
+    {
+      id: 'profile',
+      label: t.profileTitle,
+      link: '/app/profile',
+      icon: <ProfileIcon style={{ fontSize: NORMAL_ICON_SIZE, color: PRIMARY_COLOR }} />,
+      info: t.profileDescription,
+    },
+    {
+      id: 'medication',
+      label: t.medicationTitle,
+      link: '/app/medication',
+      icon: <MedicationIcon style={{ fontSize: NORMAL_ICON_SIZE, color: PRIMARY_COLOR }} />,
+      info: t.medicationDescription,
+    },
+    {
+      id: 'support',
+      label: t.supportResourcesTitle,
+      link: '/app/support-resources',
+      icon: <SupportIcon style={{ fontSize: NORMAL_ICON_SIZE, color: PRIMARY_COLOR }} />,
+      info: t.supportResourcesDescription,
+    },
+    {
+      id: 'community',
+      label: t.communityTitle,
+      link: '/app/community',
+      icon: <CommunityIcon style={{ fontSize: NORMAL_ICON_SIZE, color: PRIMARY_COLOR }} />,
+      info: t.communityDescription,
+    },
+    {
+      id: 'help',
+      label: t.helpTitle,
+      link: '/app/help',
+      icon: <HelpIcon style={{ fontSize: NORMAL_ICON_SIZE, color: PRIMARY_COLOR }} />,
+      info: t.helpDescription,
+    },
+    {
+      id: 'settings',
+      label: t.settingsTitle,
+      link: '/app/settings',
+      icon: <SettingsIcon style={{ fontSize: NORMAL_ICON_SIZE, color: PRIMARY_COLOR }} />,
+      info: t.settingsDescription,
+      children: [
+        {
+          label: t.notificationPreferencesTitle,
+          link: '/app/settings/notifications',
+          info: t.notificationPreferencesDescription,
+        },
+        {
+          label: t.privacySettingsTitle,
+          link: '/app/settings/privacy',
+          info: t.privacySettingsDescription,
+        },
+        {
+          label: t.accessibilitySettingsTitle,
+          link: '/app/settings/accessibility',
+          info: t.accessibilitySettingsDescription,
+        },
+        {
+          label: t.languageSettingsTitle,
+          link: '/app/settings/language',
+          info: t.languageSettingsDescription,
+        },
+      ],
+    },
+  ].filter(item => {
+    // Filter items based on user role
+    if (userRole === 'patient') {
+      return !item.counselorOnly;
+    }
+    return true;
+  }).map(item => ({
+    ...item,
+    // Add analytics tracking attributes
+    'data-testid': `sidebar-${item.id}`,
+    'aria-label': item.info,
+    role: 'menuitem',
+  }));
 };
 
 export default SidebarStructure;

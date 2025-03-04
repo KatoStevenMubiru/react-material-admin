@@ -1,11 +1,25 @@
 import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/material/styles';
 
 const drawerWidth = 280;
+
+// Define consistent colors
+const COLORS = {
+  primary: '#536DFE',
+  error: '#ef5350',
+  success: '#3CD4A0',
+  neutral: '#757575',
+  text: {
+    primary: '#4A4A4A',
+    secondary: '#6E6E6E'
+  }
+};
 
 export default makeStyles((theme) => ({
   menuButton: {
     marginLeft: 12,
     marginRight: 36,
+    color: COLORS.text.primary,
   },
   hide: {
     display: 'none',
@@ -25,14 +39,15 @@ export default makeStyles((theme) => ({
     '& .MuiListItemIcon-root': {
       minWidth: 60,
       '& .MuiSvgIcon-root': {
-        fontSize: '3rem',
-        color: theme.palette.primary.main,
+        fontSize: 48,
+        color: COLORS.primary,
       }
     },
     '& .MuiListItemText-primary': {
       fontSize: '1.125rem',
       fontWeight: 500,
       lineHeight: 1.4,
+      color: COLORS.text.primary,
     },
   },
   drawerClose: {
@@ -48,8 +63,8 @@ export default makeStyles((theme) => ({
       marginLeft: 'auto',
       marginRight: 'auto',
       '& .MuiSvgIcon-root': {
-        fontSize: '3rem',
-        color: theme.palette.primary.main,
+        fontSize: 48,
+        color: COLORS.primary,
       }
     },
   },
@@ -94,28 +109,23 @@ export default makeStyles((theme) => ({
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
       borderRadius: theme.spacing(1),
-      minHeight: 60,
+      minHeight: 48,
       '&:hover': {
-        backgroundColor: 'rgba(33, 150, 243, 0.08)',
+        backgroundColor: alpha(COLORS.primary, 0.08),
       },
       '&:focus-visible': {
-        outline: `3px solid ${theme.palette.primary.main}`,
+        outline: `3px solid ${COLORS.primary}`,
         outlineOffset: 2,
       },
       '&.Mui-selected': {
-        backgroundColor: 'rgba(33, 150, 243, 0.15)',
+        backgroundColor: alpha(COLORS.primary, 0.15),
         '&:hover': {
-          backgroundColor: 'rgba(33, 150, 243, 0.25)',
-        },
-      },
-      '@media (hover: none)': {
-        '&:active': {
-          backgroundColor: 'rgba(33, 150, 243, 0.25)',
+          backgroundColor: alpha(COLORS.primary, 0.25),
         },
       },
     },
     '& .MuiListItemIcon-root': {
-      color: theme.palette.primary.main,
+      color: COLORS.primary,
       minWidth: 60,
     },
     '& .MuiDivider-root': {
@@ -127,25 +137,97 @@ export default makeStyles((theme) => ({
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(1),
       paddingLeft: theme.spacing(3),
-      color: theme.palette.text.secondary,
+      color: COLORS.text.secondary,
+    },
+  },
+  nestedList: {
+    padding: theme.spacing(0, 0, 0, 2),
+    margin: theme.spacing(0, 0, 1.5, 1.5),
+    borderLeft: `2px solid ${alpha(COLORS.primary, 0.25)}`,
+    '& .MuiListItem-root': {
+      marginBottom: theme.spacing(0.5),
+      minHeight: 48,
+      borderRadius: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      '&:hover': {
+        backgroundColor: alpha(COLORS.primary, 0.05),
+      },
+      '&:focus-visible': {
+        outline: `3px solid ${COLORS.primary}`,
+        outlineOffset: 2,
+      },
+      '&.Mui-selected': {
+        backgroundColor: alpha(COLORS.primary, 0.12),
+        '&:hover': {
+          backgroundColor: alpha(COLORS.primary, 0.20),
+        },
+      },
+    },
+    '& .MuiListItemText-primary': {
+      fontSize: '0.9375rem',
+    },
+  },
+  nestedItem: {
+    paddingLeft: theme.spacing(3),
+    '&:before': {
+      content: '""',
+      position: 'absolute',
+      left: theme.spacing(1),
+      top: '50%',
+      width: 6,
+      height: 6,
+      backgroundColor: alpha(COLORS.primary, 0.5),
+      borderRadius: '50%',
+      transform: 'translateY(-50%)',
+    },
+  },
+  expandIcon: {
+    right: theme.spacing(1),
+    top: '50%',
+    transform: 'translateY(-50%)',
+    position: 'absolute',
+    zIndex: 2,
+  },
+  expandIconButton: {
+    padding: 8,
+    color: COLORS.text.secondary,
+    backgroundColor: alpha(theme.palette.background.paper, 0.8),
+    '&:hover': {
+      backgroundColor: alpha(COLORS.primary, 0.08),
+    },
+    '&:focus-visible': {
+      outline: `3px solid ${COLORS.primary}`,
+      outlineOffset: '2px',
     },
   },
   emergencyButton: {
-    backgroundColor: 'rgba(239, 83, 80, 0.08)',
+    backgroundColor: alpha(COLORS.error, 0.08),
     '&:hover': {
-      backgroundColor: 'rgba(239, 83, 80, 0.15)',
+      backgroundColor: alpha(COLORS.error, 0.15),
+    },
+    '&:focus-visible': {
+      outline: `3px solid ${alpha(COLORS.error, 0.7)}`,
+      outlineOffset: 3,
     },
     borderRadius: theme.spacing(1),
-    minHeight: 60,
+    minHeight: 48,
     padding: theme.spacing(1.5),
     '& .MuiListItemIcon-root': {
-      color: '#ef5350',
+      color: COLORS.error,
     },
     '& .MuiListItemText-primary': {
       color: '#c62828',
       fontWeight: 600,
       fontSize: '1.125rem',
     },
+    '@media (prefers-reduced-motion: reduce)': {
+      transition: 'none',
+    },
+    '@media (hover: none)': {
+      '&:active': {
+        backgroundColor: alpha(COLORS.error, 0.25),
+      },
+    }
   },
   emergencyContainer: {
     margin: theme.spacing(1, 1, 0, 1),
@@ -161,8 +243,119 @@ export default makeStyles((theme) => ({
       left: 8,
       right: 8,
       height: 1,
-      background: 'rgba(0, 0, 0, 0.06)',
+      background: alpha(theme.palette.divider, 0.5),
     },
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: -1,
+      pointerEvents: 'none',
+      borderRadius: theme.spacing(1),
+      border: `1px solid ${alpha(COLORS.error, 0.3)}`,
+    },
+    '&.academic-context': {
+      '&::after': {
+        border: `1px solid ${alpha(COLORS.error, 0.5)}`,
+        borderLeftWidth: 4,
+      },
+      '& .MuiTypography-root': {
+        '&::after': {
+          content: '"for Academic Emergency"',
+          display: 'block',
+          fontSize: '0.75rem',
+          color: alpha(COLORS.error, 0.8),
+          fontWeight: 500,
+        }
+      }
+    },
+    '&:focus-within': {
+      '&::after': {
+        border: `2px solid ${alpha(COLORS.error, 0.8)}`,
+      }
+    },
+    '@media (prefers-reduced-motion: reduce)': {
+      transition: 'none',
+    },
+    '& .nestedList': {
+      borderLeft: `2px solid ${alpha(COLORS.error, 0.4)}`,
+      '& .MuiListItem-root': {
+        minHeight: 48,
+        margin: '4px 0',
+        '&:hover': {
+          backgroundColor: alpha(COLORS.error, 0.05),
+        },
+        '&:focus-visible': {
+          outline: `3px solid ${alpha(COLORS.error, 0.5)}`,
+          outlineOffset: 2,
+        },
+        '&.Mui-selected': {
+          backgroundColor: alpha(COLORS.error, 0.08),
+          '&:hover': {
+            backgroundColor: alpha(COLORS.error, 0.15),
+          },
+        },
+        '&.direct-action': {
+          backgroundColor: alpha(COLORS.error, 0.1),
+          '&:hover': {
+            backgroundColor: alpha(COLORS.error, 0.2),
+          },
+          '& .MuiListItemIcon-root': {
+            color: '#d32f2f',
+          },
+          '& .MuiListItemText-primary': {
+            fontWeight: 600,
+          }
+        }
+      },
+      '& .MuiListItemText-primary': {
+        color: '#d32f2f',
+        fontSize: '0.9375rem',
+        fontWeight: 500,
+      },
+      '& .MuiListItemIcon-root': {
+        color: COLORS.error,
+        minWidth: 48,
+      }
+    },
+  },
+  directActionItem: {
+    position: 'relative',
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      top: '50%',
+      right: 12,
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      backgroundColor: COLORS.error,
+      transform: 'translateY(-50%)',
+    },
+    '&:hover::after': {
+      backgroundColor: '#c62828',
+    }
+  },
+  touchFriendly: {
+    minHeight: 48,
+    '& .MuiListItemIcon-root': {
+      minWidth: 48,
+    }
+  },
+  descriptionTooltip: {
+    backgroundColor: alpha(theme.palette.background.paper, 0.95),
+    color: theme.palette.text.primary,
+    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+    fontSize: 14,
+    maxWidth: 250,
+    padding: 12,
+    borderLeft: `3px solid ${COLORS.primary}`,
+    '&.emergency': {
+      borderLeft: `3px solid ${COLORS.error}`,
+    }
   },
   languageSelectorContainer: {
     padding: theme.spacing(1, 2),
@@ -220,46 +413,31 @@ export default makeStyles((theme) => ({
       borderBottom: '1px solid rgba(255, 255, 255, .45)',
     },
   },
-  descriptionTooltip: {
-    fontSize: '1rem',
-    maxWidth: 300,
-    backgroundColor: theme.palette.background.default,
-    color: theme.palette.text.primary,
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-    padding: theme.spacing(2),
-    borderRadius: theme.spacing(1),
-  },
   headerIcon: {
     fontSize: 32,
-    color: theme.palette.text.primary,
+    color: COLORS.text.primary,
   },
   headerIconCollapse: {
-    color: theme.palette.text.primary,
+    color: COLORS.text.primary,
   },
   divider: {
     margin: theme.spacing(2, 0),
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: alpha(theme.palette.divider, 0.5),
   },
   sectionDivider: {
     margin: theme.spacing(1, 2),
-    backgroundColor: 'rgba(0, 0, 0, 0.06)',
+    backgroundColor: alpha(theme.palette.divider, 0.3),
   },
   focusVisible: {
-    outline: `3px solid ${theme.palette.primary.main}`,
+    outline: `3px solid ${COLORS.primary}`,
     outlineOffset: 2,
-  },
-  touchFriendly: {
-    padding: theme.spacing(1.5),
-    '& .MuiSvgIcon-root': {
-      fontSize: '1.75rem',
-    },
   },
   linkHover: {
     '&:hover': {
-      backgroundColor: 'rgba(33, 150, 243, 0.08)',
+      backgroundColor: alpha(COLORS.primary, 0.08),
     },
     '&:focus-visible': {
-      outline: `3px solid ${theme.palette.primary.main}`,
+      outline: `3px solid ${COLORS.primary}`,
       outlineOffset: 2,
     },
   },
@@ -290,6 +468,24 @@ export default makeStyles((theme) => ({
   hiddenTitle: {
     display: 'none',
   },
+  analyticsTracked: {
+    position: 'relative',
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      width: 8,
+      height: 8,
+      backgroundColor: alpha(COLORS.success, 0.7),
+      borderRadius: '50%',
+      bottom: 8,
+      right: 8,
+      opacity: 0,
+      transition: 'opacity 0.3s ease',
+    },
+    '&:active::after': {
+      opacity: 1,
+    },
+  },
   '@media (max-width: 768px)': {
     drawerClose: {
       width: '0px',
@@ -307,6 +503,14 @@ export default makeStyles((theme) => ({
     },
     sidebarList: {
       paddingBottom: theme.spacing(12),
+    },
+    nestedList: {
+      '& .MuiListItem-root': {
+        minHeight: 52,
+      }
+    },
+    expandIconButton: {
+      padding: 12,
     }
   },
   '@media (prefers-reduced-data: reduce)': {
@@ -320,5 +524,27 @@ export default makeStyles((theme) => ({
       transition: 'none !important',
       animation: 'none !important',
     }
+  },
+  '@media (prefers-contrast: high)': {
+    emergencyButton: {
+      backgroundColor: '#ffcdd2',
+      border: '2px solid #d32f2f',
+      '& .MuiListItemText-primary': {
+        color: '#000000',
+        fontWeight: 700,
+      },
+    },
+    nestedList: {
+      borderLeft: '3px solid #000000',
+    },
+    emergencyContainer: {
+      '& .nestedList': {
+        borderLeft: '3px solid #d32f2f',
+        '& .MuiListItemText-primary': {
+          color: '#000000',
+          fontWeight: 700,
+        },
+      },
+    },
   },
 }));

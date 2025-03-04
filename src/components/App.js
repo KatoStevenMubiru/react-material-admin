@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { SnackbarProvider } from './Snackbar';
+import { AuthProvider } from '../context/AuthContext';
 
 // components
 import Layout from './Layout';
@@ -10,6 +11,7 @@ import Documentation from './Documentation/Documentation';
 // pages
 import Error from '../pages/error';
 import Login from '../pages/login';
+import Register from '../pages/auth/Register';
 import Verify from '../pages/verify';
 import Reset from '../pages/reset';
 
@@ -23,7 +25,7 @@ export default function App() {
   const isAuth = isAuthenticated();
 
   return (
-    <>
+    <AuthProvider>
       <SnackbarProvider>
         <ConnectedRouter history={getHistory()}>
           <Router history={getHistory()}>
@@ -43,15 +45,15 @@ export default function App() {
               <Route path='/documentation' component={Documentation} />
               <PrivateRoute path='/app' component={Layout} />
               <PublicRoute path='/login' component={Login} />
+              <PublicRoute path='/register' component={Register} />
               <PublicRoute path='/verify-email' exact component={Verify} />
               <PublicRoute path='/password-reset' exact component={Reset} />
-              <Redirect from='*' to='/app/dashboard' />
               <Route component={Error} />
             </Switch>
           </Router>
         </ConnectedRouter>
       </SnackbarProvider>
-    </>
+    </AuthProvider>
   );
 
   // #######################################################################

@@ -5,6 +5,7 @@ const secondary = '#FF5C93';
 const warning = '#FFC260';
 const success = '#3CD4A0';
 const info = '#9013FE';
+const neutral = '#757575';
 
 const lightenRate = 7.5;
 const darkenRate = 15;
@@ -37,8 +38,8 @@ export default {
       light: tinycolor(info).lighten(lightenRate).toHexString(),
       dark: tinycolor(info).darken(darkenRate).toHexString(),
     },
-    inherit: {
-      main: '#757575',
+    neutral: {
+      main: neutral,
       light: '#9E9E9E',
       dark: '#616161',
     },
